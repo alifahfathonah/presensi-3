@@ -1,18 +1,5 @@
 <?php
 require 'app/config.php';
-$jk = [
-    '' => '-- Pilih --',
-    'Laki-laki' => 'Laki-laki',
-    'Perempuan' => 'Perempuan',
-];
-
-$pdd = [
-    '' => '-- Pilih --',
-    'SLTA' => 'SLTA',
-    'Sarjana' => 'Sarjana',
-    'Magister' => 'Magister',
-    'Doktor' => 'Doktor',
-];
 ?>
 <!DOCTYPE html>
 <html>
