@@ -18,7 +18,7 @@ include_once 'template/sidebar.php';
                 <div class="col-sm-6 float-right">
                     <?php
                     if ($_SESSION['level'] == 3) {
-                        $url = 'peserta/index';
+                        $url = 'pegawai/index';
                     } else {
                         $url = 'admin/index';
                     }
