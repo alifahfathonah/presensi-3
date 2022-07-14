@@ -84,16 +84,77 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="<?= base_url() ?>/admin/pegawai/" class="nav-link <?php if ($page == 'pegawai') {
-                                                                                        echo 'active';
-                                                                                    } ?>">
-                            <i class="nav-icon fas fa-id-badge"></i>
+                    <li class="nav-item has-treeview  <?php if (
+                                                            $page == 'pegawai'
+                                                        ) {
+                                                            echo 'menu-open';
+                                                        } ?>">
+                        <a href="#" class="nav-link <?php if (
+                                                        $page == 'pegawai'
+                                                    ) {
+                                                        echo 'active';
+                                                    } ?>">
+                            <i class="nav-icon fas fa-id-card"></i>
                             <p>
-                                Data Pegawai
+                                Kepegawaian
+                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/pegawai/" class="nav-link <?php if ($page == 'pegawai') {
+                                                                                                echo 'active';
+                                                                                            } ?>">
+                                    <i class="nav-icon fas fa-id-badge"></i>
+                                    <p>
+                                        Data Pegawai
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+
+                    <li class="nav-item has-treeview  <?php if (
+                                                            $page == 'pengadaan' || $page == 'barang'
+                                                        ) {
+                                                            echo 'menu-open';
+                                                        } ?>">
+                        <a href="#" class="nav-link <?php if (
+                                                        $page == 'pengadaan' || $page == 'barang'
+                                                    ) {
+                                                        echo 'active';
+                                                    } ?>">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>
+                                Inventaris Barang
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/pengadaan/" class="nav-link <?php if ($page == 'pengadaan') {
+                                                                                                    echo 'active';
+                                                                                                } ?>">
+                                    <i class="nav-icon fas fa-truck-loading"></i>
+                                    <p>
+                                        Data Pengadaan
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/barang/" class="nav-link <?php if ($page == 'barang') {
+                                                                                                echo 'active';
+                                                                                            } ?>">
+                                    <i class="nav-icon fas fa-sitemap"></i>
+                                    <p>
+                                        Data Barang
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
 
                     <!-- <li class="nav-header">Laporan</li>
                     <li class="nav-item has-treeview">
