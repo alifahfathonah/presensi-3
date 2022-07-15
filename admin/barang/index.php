@@ -16,7 +16,7 @@ include_once '../../template/sidebar.php';
                     <h4 class="m-0 text-dark"><i class="fas fa-sitemap ml-1 mr-1"></i> Data Barang</h4>
                 </div><!-- /.col -->
                 <div class="col-sm-6 text-right">
-                    <a href="tambah" class="btn btn-sm bg-dark"><i class="fa fa-plus-circle"> Tambah Data</i></a>
+                    <!-- <a href="tambah" class="btn btn-sm bg-dark"><i class="fa fa-plus-circle"> Tambah Data</i></a> -->
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->

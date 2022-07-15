@@ -115,12 +115,12 @@
                     </li>
 
                     <li class="nav-item has-treeview  <?php if (
-                                                            $page == 'pengadaan' || $page == 'barang'
+                                                            $page == 'pengadaan' || $page == 'barang' | $page == 'rusak'
                                                         ) {
                                                             echo 'menu-open';
                                                         } ?>">
                         <a href="#" class="nav-link <?php if (
-                                                        $page == 'pengadaan' || $page == 'barang'
+                                                        $page == 'pengadaan' || $page == 'barang' | $page == 'rusak'
                                                     ) {
                                                         echo 'active';
                                                     } ?>">
@@ -148,6 +148,16 @@
                                     <i class="nav-icon fas fa-sitemap"></i>
                                     <p>
                                         Data Barang
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/rusak/" class="nav-link <?php if ($page == 'rusak') {
+                                                                                                echo 'active';
+                                                                                            } ?>">
+                                    <i class="nav-icon fas fa-tools"></i>
+                                    <p>
+                                        Data Kerusakan Barang
                                     </p>
                                 </a>
                             </li>
