@@ -5,10 +5,8 @@ $page = 'dashboard';
 include_once '../template/sidebar.php';
 
 $a = $con->query("SELECT COUNT(*) AS total FROM pegawai WHERE is_active = 1 ")->fetch_array();
-// $a2 = $con->query("SELECT COUNT(*) AS total FROM pendaftaran WHERE verif = 1")->fetch_array();
-// $a3 = $con->query("SELECT COUNT(*) AS total FROM pendaftaran WHERE verif = 0")->fetch_array();
-// $b = $con->query("SELECT COUNT(*) AS total FROM diklat")->fetch_array();
-// $c = $con->query("SELECT COUNT(*) AS total FROM peserta")->fetch_array();
+$b = $con->query("SELECT COUNT(*) AS total FROM pengadaan")->fetch_array();
+$c = $con->query("SELECT COUNT(*) AS total FROM rusak")->fetch_array();
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -32,6 +30,28 @@ $a = $con->query("SELECT COUNT(*) AS total FROM pegawai WHERE is_active = 1 ")->
                         <div class="info-box-content">
                             <span class="info-box-text">Data Pegawai</span>
                             <span class="info-box-number"><?= $a['total'] ?> Total Data</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="info-box mb-12 bg-gradient-indigo">
+                        <span class="info-box-icon"><i class="fas fa-truck-loading"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Data Pengadaan Barang</span>
+                            <span class="info-box-number"><?= $b['total'] ?> Total Data</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="info-box mb-12 bg-gradient-indigo">
+                        <span class="info-box-icon"><i class="fas fa-tools"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Data Kerusakan Barang</span>
+                            <span class="info-box-number"><?= $c['total'] ?> Total Data</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>

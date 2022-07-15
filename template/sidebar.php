@@ -115,12 +115,12 @@
                     </li>
 
                     <li class="nav-item has-treeview  <?php if (
-                                                            $page == 'pengadaan' || $page == 'barang' | $page == 'rusak'
+                                                            $page == 'pengadaan' || $page == 'barang' || $page == 'rusak' || $page == 'mutasi'
                                                         ) {
                                                             echo 'menu-open';
                                                         } ?>">
                         <a href="#" class="nav-link <?php if (
-                                                        $page == 'pengadaan' || $page == 'barang' | $page == 'rusak'
+                                                        $page == 'pengadaan' || $page == 'barang' || $page == 'rusak' || $page == 'mutasi'
                                                     ) {
                                                         echo 'active';
                                                     } ?>">
@@ -158,6 +158,16 @@
                                     <i class="nav-icon fas fa-tools"></i>
                                     <p>
                                         Data Kerusakan Barang
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/mutasi/" class="nav-link <?php if ($page == 'mutasi') {
+                                                                                                echo 'active';
+                                                                                            } ?>">
+                                    <i class="nav-icon fas fa-people-carry"></i>
+                                    <p>
+                                        Data Mutasi Barang
                                     </p>
                                 </a>
                             </li>
