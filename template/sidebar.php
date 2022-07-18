@@ -85,12 +85,12 @@
                     </li>
 
                     <li class="nav-item has-treeview  <?php if (
-                                                            $page == 'pegawai'
+                                                            $page == 'pegawai' || $page == 'tugas'
                                                         ) {
                                                             echo 'menu-open';
                                                         } ?>">
                         <a href="#" class="nav-link <?php if (
-                                                        $page == 'pegawai'
+                                                        $page == 'pegawai' || $page == 'tugas'
                                                     ) {
                                                         echo 'active';
                                                     } ?>">
@@ -108,6 +108,16 @@
                                     <i class="nav-icon fas fa-id-badge"></i>
                                     <p>
                                         Data Pegawai
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/tugas/" class="nav-link <?php if ($page == 'tugas') {
+                                                                                                echo 'active';
+                                                                                            } ?>">
+                                    <i class="nav-icon fas fa-briefcase"></i>
+                                    <p>
+                                        Data Perintah Tugas
                                     </p>
                                 </a>
                             </li>
@@ -151,7 +161,7 @@
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= base_url() ?>/admin/rusak/" class="nav-link <?php if ($page == 'rusak') {
                                                                                                 echo 'active';
                                                                                             } ?>">
@@ -170,7 +180,7 @@
                                         Data Mutasi Barang
                                     </p>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
 

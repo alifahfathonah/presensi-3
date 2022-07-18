@@ -1,7 +1,7 @@
 <?php
 require '../../app/config.php';
 include_once '../../template/header.php';
-$page = 'pengadaan';
+$page = 'tugas';
 include_once '../../template/sidebar.php';
 ?>
 
@@ -13,7 +13,7 @@ include_once '../../template/sidebar.php';
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h4 class="m-0 text-dark"><i class="fas fa-truck-loading ml-1 mr-1"></i> Data Pengadaan Barang</h4>
+                    <h4 class="m-0 text-dark"><i class="fas fa-briefcase ml-1 mr-1"></i> Data Peritah Tugas</h4>
                 </div><!-- /.col -->
                 <div class="col-sm-6 text-right">
                     <a href="tambah" class="btn btn-sm bg-dark"><i class="fa fa-plus-circle"> Tambah Data</i></a>
@@ -37,15 +37,16 @@ include_once '../../template/sidebar.php';
                                 <div id="notif" class="alert bg-teal" role="alert"><i class="fa fa-check-circle mr-2"></i><b><?= $_SESSION['pesan'] ?></b></div>
                             <?php $_SESSION['pesan'] = '';
                             } ?>
+
                             <div class="table-responsive">
                                 <table id="example1" class="table table-bordered table-striped dataTable">
                                     <thead class="bg-purple">
                                         <tr align="center">
                                             <th>No</th>
-                                            <th>Data Barang</th>
-                                            <th>Tanggal</th>
-                                            <th>Sumber Dana</th>
-                                            <th>Pengajuan</th>
+                                            <th>Nomor Surat</th>
+                                            <th>Perihal</th>
+                                            <th>Waktu</th>
+                                            <th>Tempat</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -53,27 +54,22 @@ include_once '../../template/sidebar.php';
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        $data = $con->query("SELECT * FROM pengadaan ORDER BY tgl_pengadaan DESC");
+                                        $data = $con->query("SELECT * FROM tugas ORDER BY id_tugas DESC");
                                         while ($row = $data->fetch_array()) {
-                                            $tgl = new DateTime($row['tgl_pengadaan']);
-                                            $today = new DateTime('today');
-                                            $y = $today->diff($tgl)->y;
-                                            $m = $today->diff($tgl)->m;
-                                            $d = $today->diff($tgl)->d;
                                         ?>
                                             <tr>
                                                 <td align="center" width="5%"><?= $no++ ?></td>
-                                                <td>
-                                                    <b>Kode</b> : <?= $row['kd_pengadaan'] ?><br>
-                                                    <b>Barang</b> : <?= $row['nm_barang'] ?><br>
-                                                    <b>Satuan</b> : <?= $row['satuan'] ?><br>
+                                                <td align="center"><?= $row['no_surat'] ?></td>
+                                                <td align="center"><?= $row['perihal'] ?></td>
+                                                <td align="center">
+                                                    <?= tgl_indo($row['tanggal']) ?><br>
+                                                    <?= $row['jam'] ?> WITA
                                                 </td>
-                                                <td align="center"><?= tgl($row['tgl_pengadaan']) ?></td>
-                                                <td align="center"><?= $row['sumber_dana'] ?></td>
-                                                <td align="center"><?= $y . " Tahun " . $m . " Bulan " . $d . " Hari" ?> Lalu</td>
-                                                <td align="center" width="9%">
+                                                <td align="center"><?= $row['tempat'] ?></td>
+                                                <td align="center" width="12%">
+                                                    <a href="surat?id=<?= $row[0] ?>" class="btn bg-olive btn-xs" title="Surat Tugas" target="_blank"><i class="fa fa-mail-bulk"></i></a>
                                                     <a href="edit?id=<?= $row[0] ?>" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
-                                                    <a href="hapus?id=<?= $row[0] ?>" class="btn btn-danger btn-xs alert-hapus" title="Hapus"><i class="fa fa-trash"></i> </a>
+                                                    <a href="hapus?id=<?= $row[0] ?>" class="btn btn-danger btn-xs alert-hapus" title="Hapus"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         <?php } ?>
