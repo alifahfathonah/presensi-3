@@ -85,12 +85,12 @@
                     </li>
 
                     <li class="nav-item has-treeview  <?php if (
-                                                            $page == 'pegawai' || $page == 'tugas'
+                                                            $page == 'pegawai' || $page == 'tugas' || $page == 'absensi'
                                                         ) {
                                                             echo 'menu-open';
                                                         } ?>">
                         <a href="#" class="nav-link <?php if (
-                                                        $page == 'pegawai' || $page == 'tugas'
+                                                        $page == 'pegawai' || $page == 'tugas' || $page == 'absensi'
                                                     ) {
                                                         echo 'active';
                                                     } ?>">
@@ -108,6 +108,16 @@
                                     <i class="nav-icon fas fa-id-badge"></i>
                                     <p>
                                         Data Pegawai
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/absensi/" class="nav-link <?php if ($page == 'absensi') {
+                                                                                                echo 'active';
+                                                                                            } ?>">
+                                    <i class="nav-icon fa fa-street-view"></i>
+                                    <p>
+                                        Absensi Kehadiran
                                     </p>
                                 </a>
                             </li>
@@ -264,16 +274,26 @@
                             </p>
                         </a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a href="<?= base_url() ?>/peserta/pendaftaran/" class="nav-link <?php if ($page == 'pendaftaran') {
-                                                                                                echo 'active';
-                                                                                            } ?>">
-                            <i class="nav-icon fa fa-file-signature"></i>
+                    <li class="nav-item">
+                        <a href="<?= base_url() ?>/pegawai/absensi/" class="nav-link <?php if ($page == 'absensi') {
+                                                                                            echo 'active';
+                                                                                        } ?>">
+                            <i class="nav-icon fa fa-street-view"></i>
                             <p>
-                                Pendaftaran Diklat
+                                Absensi Kehadiran
                             </p>
                         </a>
-                    </li> -->
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url() ?>/pegawai/tugas/" class="nav-link <?php if ($page == 'tugas') {
+                                                                                        echo 'active';
+                                                                                    } ?>">
+                            <i class="nav-icon fas fa-briefcase"></i>
+                            <p>
+                                Data Perintah Tugas
+                            </p>
+                        </a>
+                    </li>
                 <?php } ?>
             </ul>
         </nav>

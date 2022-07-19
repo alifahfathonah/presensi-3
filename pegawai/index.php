@@ -6,7 +6,7 @@ include_once '../template/sidebar.php';
 $log = $con->query("SELECT * FROM user WHERE id_user = '$_SESSION[id_user]' ")->fetch_array();
 $user = $log['id_pegawai'];
 
-// $a1 = $con->query("SELECT COUNT(*) AS total FROM pendaftaran WHERE id_peserta = '$user' ")->fetch_array();
+$a = $con->query("SELECT COUNT(*) AS total FROM tugas a JOIN sub_tugas b ON a.id_tugas = b.id_tugas WHERE b.id_pegawai = '$user' ")->fetch_array();
 // $a2 = $con->query("SELECT COUNT(*) AS total FROM pendaftaran WHERE verif = 1 AND id_peserta = '$user'")->fetch_array();
 // $a3 = $con->query("SELECT COUNT(*) AS total FROM pendaftaran WHERE verif = 0 AND id_peserta = '$user'")->fetch_array();
 ?>
@@ -27,11 +27,11 @@ $user = $log['id_pegawai'];
             <div class="row">
                 <div class="col-sm-12">
                     <div class="info-box mb-12 bg-gradient-purple">
-                        <span class="info-box-icon"><i class="fas fa-file-signature"></i></span>
+                        <span class="info-box-icon"><i class="fas fa-briefcase"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Data</span>
-                            <span class="info-box-number"> Total Data</span>
+                            <span class="info-box-text">Data Perintah Tugas</span>
+                            <span class="info-box-number"><?= $a['total'] ?> Total Data</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
