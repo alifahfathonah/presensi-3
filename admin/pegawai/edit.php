@@ -112,6 +112,13 @@ $jk = [
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Scan Ijazah Terakhir</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" accept=".pdf,.PDF" class="form-control" name="scan_ijazah">
+                                        <label style="color: red; font-style: italic; font-size: 12px;">* Biarkan Kosong jika File tidak di ubah</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Tempat Lahir</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="tmpt_lahir" value="<?= $row['tmpt_lahir'] ?>" required>
@@ -192,42 +199,108 @@ if (isset($_POST['submit'])) {
     $hp = $_POST['hp'];
     $is_active = $_POST['is_active'];
 
-    $update = $con->query("UPDATE pegawai SET 
-        nm_pegawai = '$nm_pegawai',
-        nip = '$nip',
-        id_divisi = '$id_divisi',
-        id_jabatan = '$id_jabatan',
-        status = '$status',
-        tmt = '$tmt',
-        tmpt_lahir = '$tmpt_lahir',
-        tgl_lahir = '$tgl_lahir',
-        jk = '$jk',
-        agama = '$agama',
-        alamat = '$alamat',
-        hp = '$hp',
-        is_active = '$is_active'
-        WHERE id_pegawai = '$id'
-    ");
+    if (!empty($_FILES['scan_ijazah']['name'])) {
+        $filelama = $row['scan_ijazah'];
 
-    if ($update) {
-        if ($is_active == 1) {
-            $con->query("UPDATE user SET
-                nm_user = '$nm_pegawai',
-                username = '$nip'
-                WHERE id_pegawai = '$id' 
-            ");
+        // UPLOAD FILE 
+        $file      = $_FILES['scan_ijazah']['name'];
+        $x_file    = explode('.', $file);
+        $ext_file  = end($x_file);
+        $scan_ijazah = rand(1, 99999) . '.' . $ext_file;
+        $size_file = $_FILES['scan_ijazah']['size'];
+        $tmp_file  = $_FILES['scan_ijazah']['tmp_name'];
+        $dir_file  = '../../scan-ijazah/';
+        $allow_ext        = array('pdf', 'PDF');
+        $allow_size       = 2097152;
+        // var_dump($scan_ijazah); die();
+
+        if (in_array($ext_file, $allow_ext) === true) {
+            if ($size_file <= $allow_size) {
+                move_uploaded_file($tmp_file, $dir_file . $scan_ijazah);
+                if (file_exists($dir_file . $filelama)) {
+                    unlink($dir_file . $filelama);
+                }
+                $f_scan_ijazah .= "Upload Success";
+            } else {
+                echo "
+                <script type='text/javascript'>
+                    setTimeout(function () {    
+                        swal({
+                            title: '',
+                            text:  'Ukuran Foto Terlalu Besar, Maksimal 2 Mb',
+                            type: 'warning',
+                            timer: 3000,
+                            showConfirmButton: true
+                        });     
+                    },10);   
+                    window.setTimeout(function(){ 
+                        window.location.replace('edit?id=$id');
+                    } ,2000); 
+                </script>";
+            }
         } else {
-            $con->query("UPDATE user SET
-                nm_user = '$nm_pegawai',
-                username = '<i>Akun Dinonaktifkan<i>'
-                WHERE id_pegawai = '$id' 
-            ");
+            echo "
+            <script type='text/javascript'>
+                setTimeout(function () {    
+                    swal({
+                        title: 'Format File Tidak Didukung',
+                        text:  'File Harus Berupa Gambar',
+                        type: 'warning',
+                        timer: 3000,
+                        showConfirmButton: true
+                    });     
+                },10);  
+                window.setTimeout(function(){ 
+                    window.location.replace('edit?id=$id');
+                } ,2000);  
+            </script>";
         }
-        $_SESSION['pesan'] = "Data Berhasil di Update";
-        echo "<meta http-equiv='refresh' content='0; url=index'>";
     } else {
-        echo "Data anda gagal diubah. Ulangi sekali lagi";
-        echo "<meta http-equiv='refresh' content='0; url=edit?id=$id'>";
+        $scan_ijazah = $row['scan_ijazah'];
+        $f_scan_ijazah .= "Upload Success!";
+    }
+
+
+    if (!empty($f_scan_ijazah)) {
+
+        $update = $con->query("UPDATE pegawai SET 
+            nm_pegawai = '$nm_pegawai',
+            nip = '$nip',
+            id_divisi = '$id_divisi',
+            id_jabatan = '$id_jabatan',
+            status = '$status',
+            tmt = '$tmt',
+            scan_ijazah = '$scan_ijazah',
+            tmpt_lahir = '$tmpt_lahir',
+            tgl_lahir = '$tgl_lahir',
+            jk = '$jk',
+            agama = '$agama',
+            alamat = '$alamat',
+            hp = '$hp',
+            is_active = '$is_active'
+            WHERE id_pegawai = '$id'
+        ");
+
+        if ($update) {
+            if ($is_active == 1) {
+                $con->query("UPDATE user SET
+                    nm_user = '$nm_pegawai',
+                    username = '$nip'
+                    WHERE id_pegawai = '$id' 
+                ");
+            } else {
+                $con->query("UPDATE user SET
+                    nm_user = '$nm_pegawai',
+                    username = '<i>Akun Dinonaktifkan<i>'
+                    WHERE id_pegawai = '$id' 
+                ");
+            }
+            $_SESSION['pesan'] = "Data Berhasil di Update";
+            echo "<meta http-equiv='refresh' content='0; url=index'>";
+        } else {
+            echo "Data anda gagal diubah. Ulangi sekali lagi";
+            echo "<meta http-equiv='refresh' content='0; url=edit?id=$id'>";
+        }
     }
 }
 

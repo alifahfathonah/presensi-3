@@ -9,6 +9,10 @@ $absen = $user['id_pegawai'];
 $tanggal = date('Y-m-d');
 $jam = date('H:i');
 $cek = $con->query("SELECT * FROM absensi WHERE id_pegawai = '$absen' AND tanggal = '$tanggal'")->fetch_array();
+$telat = $con->query("SELECT * FROM telat WHERE id_pegawai = '$absen' AND tanggal = '$tanggal'")->fetch_array();
+$jamSekarang = strtotime(date('H:i'));
+$limit = $con->query("SELECT * FROM jam_masuk WHERE id = 1")->fetch_array();
+$jamLimit = strtotime($limit['jam']);
 ?>
 
 
@@ -40,19 +44,25 @@ $cek = $con->query("SELECT * FROM absensi WHERE id_pegawai = '$absen' AND tangga
                     } ?>
 
                     <?php if (!isset($cek)) { ?>
-                        <form method="POST">
-                            <input type="hidden" id="latitude" name="latitude" required>
-                            <input type="hidden" id="longitude" name="longitude" required>
-                            <button id="current_location" class="btn btn-lg btn-block bg-cyan mb-2"><i class="fa fa-street-view"> Klik untuk melakukan Absensi</i></button>
-                            <div id="konfirmasi" class="row mt-2 mb-2" hidden>
-                                <div class="col-6">
-                                    <button type="submit" name="submit" class="btn btn-lg btn-block bg-success"><i class="fa fa-check-circle"> Absensi Sekarang</i></button>
+                        <?php if (($jamSekarang <= $jamLimit) || (isset($telat))) { ?>
+                            <form method="POST">
+                                <input type="hidden" id="latitude" name="latitude" required>
+                                <input type="hidden" id="longitude" name="longitude" required>
+                                <button id="current_location" class="btn btn-lg btn-block bg-cyan mb-2"><i class="fa fa-street-view"> Klik untuk melakukan Absensi</i></button>
+                                <div id="konfirmasi" class="row mt-2 mb-2" hidden>
+                                    <div class="col-6">
+                                        <button type="submit" name="submit" class="btn btn-lg btn-block bg-success"><i class="fa fa-check-circle"> Absensi Sekarang</i></button>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="" id="batal" class="btn btn-lg btn-block bg-danger"><i class="fa fa-times-circle"> Batal</i></a>
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <a href="" id="batal" class="btn btn-lg btn-block bg-danger"><i class="fa fa-times-circle"> Batal</i></a>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        <?php } else { ?>
+                            <form method="POST">
+                                <a href="#" class="btn btn-lg btn-block bg-danger mb-2"><i class="fa fa-times-circle"> Kamu Terlambat melakukan Absensi ! <br><br> silahkan hubungi Administrator untuk membuka akses Absensi</i></a>
+                            </form>
+                        <?php } ?>
                     <?php } else { ?>
                         <div class="alert bg-gradient-olive alert-dismissible">
                             <h5><i class="icon fas fa-check"></i> Informasi</h5>

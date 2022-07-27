@@ -41,6 +41,8 @@ if (mysqli_connect_errno()) {
                                     <dd class="col-sm-9">: <?= $d['status'] ?></dd>
                                     <dt class="col-sm-3">TMT</dt>
                                     <dd class="col-sm-9">: <?= tgl($d['tmt']) ?></dd>
+                                    <dt class="col-sm-3">Scan Ijazah Terakhir</dt>
+                                    <dd class="col-sm-9">: <a href="<?= base_url() ?>/scan-ijazah/<?= $d['scan_ijazah'] ?>" class="btn btn-xs bg-purple" target="_BLANK"><i class="fa fa-file-alt mr-1"></i> Lihat File</a></dd>
                                     <dt class="col-sm-3">Lama Kerja</dt>
                                     <dd class="col-sm-9">: <?= $ytmt . ' Tahun'; ?></dd>
                                     <dt class="col-sm-3">Tempat Lahir</dt>

@@ -33,12 +33,12 @@
                     </li>
 
                     <li class="nav-item has-treeview  <?php if (
-                                                            $page == 'user' || $page == 'divisi' || $page == 'ruangan' || $page == 'jabatan'
+                                                            $page == 'user' || $page == 'divisi' || $page == 'ruangan' || $page == 'jabatan' || $page == 'jam'
                                                         ) {
                                                             echo 'menu-open';
                                                         } ?>">
                         <a href="#" class="nav-link <?php if (
-                                                        $page == 'user' || $page == 'divisi' || $page == 'ruangan' || $page == 'jabatan'
+                                                        $page == 'user' || $page == 'divisi' || $page == 'ruangan' || $page == 'jabatan' || $page == 'jam'
                                                     ) {
                                                         echo 'active';
                                                     } ?>">
@@ -81,16 +81,24 @@
                                     <p>Data Ruangan</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/jam/" class="nav-link <?php if ($page == 'jam') {
+                                                                                            echo 'active';
+                                                                                        } ?>">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    <p>Jam Masuk Kerja</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
                     <li class="nav-item has-treeview  <?php if (
-                                                            $page == 'pegawai' || $page == 'tugas' || $page == 'absensi'
+                                                            $page == 'pegawai' || $page == 'tugas' || $page == 'absensi' || $page == 'telat'
                                                         ) {
                                                             echo 'menu-open';
                                                         } ?>">
                         <a href="#" class="nav-link <?php if (
-                                                        $page == 'pegawai' || $page == 'tugas' || $page == 'absensi'
+                                                        $page == 'pegawai' || $page == 'tugas' || $page == 'absensi' || $page == 'telat'
                                                     ) {
                                                         echo 'active';
                                                     } ?>">
@@ -118,6 +126,16 @@
                                     <i class="nav-icon fa fa-street-view"></i>
                                     <p>
                                         Absensi Kehadiran
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/telat/" class="nav-link <?php if ($page == 'telat') {
+                                                                                                echo 'active';
+                                                                                            } ?>">
+                                    <i class="nav-icon fa fa-door-open"></i>
+                                    <p>
+                                        Akses Terlambat Absensi
                                     </p>
                                 </a>
                             </li>
@@ -171,7 +189,7 @@
                                     </p>
                                 </a>
                             </li>
-                            <!-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a href="<?= base_url() ?>/admin/rusak/" class="nav-link <?php if ($page == 'rusak') {
                                                                                                 echo 'active';
                                                                                             } ?>">
@@ -190,7 +208,7 @@
                                         Data Mutasi Barang
                                     </p>
                                 </a>
-                            </li> -->
+                            </li>
                         </ul>
                     </li>
 

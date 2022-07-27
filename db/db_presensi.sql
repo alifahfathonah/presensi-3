@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2022 at 06:09 PM
+-- Generation Time: Jul 27, 2022 at 04:18 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -44,7 +44,8 @@ CREATE TABLE `absensi` (
 --
 
 INSERT INTO `absensi` (`id_absensi`, `id_pegawai`, `id_izin`, `tanggal`, `jam`, `latitude`, `longitude`, `sts`) VALUES
-(2, 2, NULL, '2022-07-19', '23:48', '-3.2841034', '114.5940115', 'Hadir');
+(2, 2, NULL, '2022-07-19', '23:48', '-3.2841034', '114.5940115', 'Hadir'),
+(5, 2, NULL, '2022-07-20', '22:16', '-3.2842356562400257', '114.59429153175869', 'Hadir');
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,8 @@ CREATE TABLE `barang` (
 INSERT INTO `barang` (`id_barang`, `id_pengadaan`, `id_ruangan`, `status`) VALUES
 (2, 2, 3, '1'),
 (3, 3, 4, '1'),
-(4, 4, 5, '0');
+(4, 4, 5, '0'),
+(5, 5, 1, '1');
 
 -- --------------------------------------------------------
 
@@ -109,6 +111,24 @@ INSERT INTO `jabatan` (`id_jabatan`, `nm_jabatan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jam_masuk`
+--
+
+CREATE TABLE `jam_masuk` (
+  `id` int(11) NOT NULL,
+  `jam` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jam_masuk`
+--
+
+INSERT INTO `jam_masuk` (`id`, `jam`) VALUES
+(1, '08:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mutasi`
 --
 
@@ -142,6 +162,7 @@ CREATE TABLE `pegawai` (
   `id_jabatan` int(11) NOT NULL,
   `status` varchar(30) NOT NULL,
   `tmt` date NOT NULL,
+  `scan_ijazah` varchar(100) NOT NULL,
   `tmpt_lahir` varchar(50) NOT NULL,
   `tgl_lahir` date NOT NULL,
   `jk` varchar(20) NOT NULL,
@@ -155,9 +176,9 @@ CREATE TABLE `pegawai` (
 -- Dumping data for table `pegawai`
 --
 
-INSERT INTO `pegawai` (`id_pegawai`, `nm_pegawai`, `nip`, `id_divisi`, `id_jabatan`, `status`, `tmt`, `tmpt_lahir`, `tgl_lahir`, `jk`, `agama`, `alamat`, `hp`, `is_active`) VALUES
-(2, 'Kaiden S.Kom', '121212', 2, 1, 'ASN', '2019-07-08', 'Banjarmasin', '1995-07-11', 'Laki - laki', 'Islam', 'Banjarmasin', '081391701913', '1'),
-(3, 'Curt Cobain S.Kom', '123456', 2, 1, 'ASN', '2019-07-07', 'London', '1990-07-22', 'Laki - laki', 'Islam', 'Banjarmasin', '084589585899', '1');
+INSERT INTO `pegawai` (`id_pegawai`, `nm_pegawai`, `nip`, `id_divisi`, `id_jabatan`, `status`, `tmt`, `scan_ijazah`, `tmpt_lahir`, `tgl_lahir`, `jk`, `agama`, `alamat`, `hp`, `is_active`) VALUES
+(2, 'Kaiden S.Kom', '121212', 2, 1, 'ASN', '2019-07-08', '25569.pdf', 'Banjarmasin', '1995-07-11', 'Laki - laki', 'Islam', 'Banjarmasin', '081391701913', '1'),
+(3, 'Curt Cobain S.Kom', '123456', 2, 1, 'ASN', '2019-07-07', '56175.pdf', 'London', '1990-07-22', 'Laki - laki', 'Islam', 'Banjarmasin', '084589585899', '1');
 
 -- --------------------------------------------------------
 
@@ -181,7 +202,8 @@ CREATE TABLE `pengadaan` (
 INSERT INTO `pengadaan` (`id_pengadaan`, `kd_pengadaan`, `nm_barang`, `satuan`, `tgl_pengadaan`, `sumber_dana`) VALUES
 (2, 'IVB000001', 'Sierra IBM, 94.6 FLOPS', 'Unit', '2022-02-14', 'Anggaran 2022'),
 (3, 'IVB000002', 'Monitor LG 20 inc', 'Unit', '2021-07-11', 'Anggaran 2021'),
-(4, 'IVB000003', 'Netgear XS748T 48 Port 10 ', 'Unit', '2020-07-16', 'Anggaran 2020');
+(4, 'IVB000003', 'Netgear XS748T 48 Port 10 ', 'Unit', '2020-07-16', 'Anggaran 2020'),
+(5, 'IVB000004', 'Kabel LAN 2 M', 'Set', '2021-07-20', 'Anggaran 2021');
 
 -- --------------------------------------------------------
 
@@ -243,7 +265,21 @@ CREATE TABLE `sub_tugas` (
 --
 
 INSERT INTO `sub_tugas` (`id_sub_tugas`, `id_tugas`, `id_pegawai`) VALUES
-(8, '62d573f20bb05', 3);
+(8, '62d573f20bb05', 3),
+(9, '62d80c2f5a80d', 3),
+(10, '62d80c2f5a80d', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `telat`
+--
+
+CREATE TABLE `telat` (
+  `id_telat` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
+  `tanggal` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -265,7 +301,8 @@ CREATE TABLE `tugas` (
 --
 
 INSERT INTO `tugas` (`id_tugas`, `no_surat`, `perihal`, `tanggal`, `jam`, `tempat`) VALUES
-('62d573f20bb05', '01/ST/VII/2022', 'Perjalanan Dinas', '2022-07-20', '10:00', 'Diskominfotik Banjarbaru');
+('62d573f20bb05', '01/ST/VII/2022', 'Perjalanan Dinas', '2022-07-20', '10:00', 'Diskominfotik Banjarbaru'),
+('62d80c2f5a80d', '02/ST/VII/2022', 'Perjalanan Dinas', '2022-07-21', '09:00', 'Dinas Kesehatan Tanah Laut');
 
 -- --------------------------------------------------------
 
@@ -323,6 +360,12 @@ ALTER TABLE `jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
 
 --
+-- Indexes for table `jam_masuk`
+--
+ALTER TABLE `jam_masuk`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `mutasi`
 --
 ALTER TABLE `mutasi`
@@ -363,6 +406,13 @@ ALTER TABLE `sub_tugas`
   ADD KEY `sub_tugas_ibfk_2` (`id_tugas`);
 
 --
+-- Indexes for table `telat`
+--
+ALTER TABLE `telat`
+  ADD PRIMARY KEY (`id_telat`),
+  ADD KEY `id_pegawai` (`id_pegawai`);
+
+--
 -- Indexes for table `tugas`
 --
 ALTER TABLE `tugas`
@@ -383,12 +433,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id_absensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_absensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `divisi`
 --
@@ -399,6 +449,11 @@ ALTER TABLE `divisi`
 --
 ALTER TABLE `jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `jam_masuk`
+--
+ALTER TABLE `jam_masuk`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `mutasi`
 --
@@ -413,7 +468,7 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT for table `pengadaan`
 --
 ALTER TABLE `pengadaan`
-  MODIFY `id_pengadaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pengadaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `ruangan`
 --
@@ -428,7 +483,12 @@ ALTER TABLE `rusak`
 -- AUTO_INCREMENT for table `sub_tugas`
 --
 ALTER TABLE `sub_tugas`
-  MODIFY `id_sub_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_sub_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `telat`
+--
+ALTER TABLE `telat`
+  MODIFY `id_telat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user`
 --
@@ -467,6 +527,12 @@ ALTER TABLE `rusak`
 --
 ALTER TABLE `sub_tugas`
   ADD CONSTRAINT `sub_tugas_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `telat`
+--
+ALTER TABLE `telat`
+  ADD CONSTRAINT `telat_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`

@@ -55,6 +55,11 @@ include_once '../../template/sidebar.php';
                                         $no = 1;
                                         $data = $con->query("SELECT * FROM mutasi a JOIN barang b ON a.id_barang = b.id_barang JOIN pengadaan c ON b.id_pengadaan = c.id_pengadaan JOIN ruangan d ON a.id_ruangan = d.id_ruangan ORDER BY tgl_mutasi DESC");
                                         while ($row = $data->fetch_array()) {
+                                            $tgl = new DateTime($row['tgl_mutasi']);
+                                            $today = new DateTime('today');
+                                            $y = $today->diff($tgl)->y;
+                                            $m = $today->diff($tgl)->m;
+                                            $d = $today->diff($tgl)->d;
                                         ?>
                                             <tr>
                                                 <td align="center" width="5%"><?= $no++ ?></td>
@@ -69,7 +74,11 @@ include_once '../../template/sidebar.php';
                                                     echo 'Ruangan ' . $r['nm_ruangan'];
                                                     ?>
                                                 </td>
-                                                <td align="center"><?= tgl($row['tgl_mutasi']) ?></td>
+                                                <td align="center">
+                                                    <?= tgl($row['tgl_mutasi']) ?>
+                                                    <hr>
+                                                    Terhitung : <?= $y . " Tahun " . $m . " Bulan " . $d . " Hari" ?> Lalu
+                                                </td>
                                                 <td align="center" width="9%">
                                                     <a href="edit?id=<?= $row[0] ?>" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
                                                     <a href="hapus?id=<?= $row[0] ?>" class="btn btn-danger btn-xs alert-hapus" title="Hapus"><i class="fa fa-trash"></i> </a>

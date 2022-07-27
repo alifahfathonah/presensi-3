@@ -1,7 +1,7 @@
 <?php
 require '../../app/config.php';
 include_once '../../template/header.php';
-$page = 'rusak';
+$page = 'telat';
 include_once '../../template/sidebar.php';
 ?>
 
@@ -13,7 +13,7 @@ include_once '../../template/sidebar.php';
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h4 class="m-0 text-dark"><i class="fas fa-tools ml-1 mr-1"></i> Data Kerusakan Barang</h4>
+                    <h4 class="m-0 text-dark"><i class="fas fa-door-open ml-1 mr-1"></i> Data Akses Terlambat Absensi</h4>
                 </div><!-- /.col -->
                 <div class="col-sm-6 text-right">
                     <a href="tambah" class="btn btn-sm bg-dark"><i class="fa fa-plus-circle"> Tambah Data</i></a>
@@ -42,10 +42,10 @@ include_once '../../template/sidebar.php';
                                     <thead class="bg-purple">
                                         <tr align="center">
                                             <th>No</th>
-                                            <th>Data Barang</th>
-                                            <th>Keterangan</th>
-                                            <th>Tanggal Kerusakan</th>
-                                            <th>Status</th>
+                                            <th>Data Pegawai</th>
+                                            <th>Divisi</th>
+                                            <th>Jabatan</th>
+                                            <th>Tanggal</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -53,38 +53,19 @@ include_once '../../template/sidebar.php';
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        $data = $con->query("SELECT * FROM rusak a JOIN barang b ON a.id_barang = b.id_barang JOIN pengadaan c ON b.id_pengadaan = c.id_pengadaan ORDER BY tgl_rusak DESC");
-                                        while ($row = $data->fetch_array()) {
-                                            $tgl = new DateTime($row['tgl_rusak']);
-                                            $today = new DateTime('today');
-                                            $y = $today->diff($tgl)->y;
-                                            $m = $today->diff($tgl)->m;
-                                            $d = $today->diff($tgl)->d;
-                                        ?>
+                                        $data = $con->query("SELECT * FROM telat a JOIN pegawai b ON a.id_pegawai = b.id_pegawai JOIN divisi c ON b.id_divisi = c.id_divisi JOIN jabatan d ON b.id_jabatan = d.id_jabatan ORDER BY id_telat DESC");
+                                        while ($row = $data->fetch_array()) { ?>
                                             <tr>
                                                 <td align="center" width="5%"><?= $no++ ?></td>
                                                 <td>
-                                                    <b>Kode</b> : <?= $row['kd_pengadaan'] ?><br>
-                                                    <b>Nama</b> : <?= $row['nm_barang'] ?><br>
-                                                    <b>Tanggal</b> : <?= tgl($row['tgl_pengadaan']) ?>
+                                                    <b>Nama</b> : <?= $row['nm_pegawai'] ?><br>
+                                                    <b>NIP</b> : <?= $row['nip'] ?><br>
+                                                    <b>Status</b> : <?= $row['status'] ?>
                                                 </td>
-                                                <td><?= $row['ket'] ?></td>
-                                                <td align="center">
-                                                    <?= tgl($row['tgl_rusak']) ?>
-                                                    <hr>
-                                                    Terhitung : <?= $y . " Tahun " . $m . " Bulan " . $d . " Hari" ?> Lalu
-                                                </td>
-                                                </td>
-                                                <td align="center">
-                                                    <?php if ($row['status_perbaikan'] == 1) { ?>
-                                                        Barang Bisa Diperbaiki <br>
-                                                        Biaya : <?= $row['biaya_perbaikan'] ?>
-                                                    <?php } else { ?>
-                                                        Barang Rusak Total
-                                                    <?php  } ?>
-                                                </td>
+                                                <td align="center"><?= $row['nm_divisi'] ?></td>
+                                                <td align="center"><?= $row['nm_jabatan'] ?></td>
+                                                <td align="center"><?= tgl($row['tanggal']) ?></td>
                                                 <td align="center" width="9%">
-                                                    <a href="edit?id=<?= $row[0] ?>" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
                                                     <a href="hapus?id=<?= $row[0] ?>" class="btn btn-danger btn-xs alert-hapus" title="Hapus"><i class="fa fa-trash"></i> </a>
                                                 </td>
                                             </tr>
