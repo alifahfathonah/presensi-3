@@ -42,6 +42,7 @@ include_once '../../template/sidebar.php';
                                     <thead class="bg-purple">
                                         <tr align="center">
                                             <th>No</th>
+                                            <th>Nomor SK</th>
                                             <th>Data Barang</th>
                                             <th>Lokasi Sekarang</th>
                                             <th>Lokasi Lama</th>
@@ -63,6 +64,7 @@ include_once '../../template/sidebar.php';
                                         ?>
                                             <tr>
                                                 <td align="center" width="5%"><?= $no++ ?></td>
+                                                <td align="center"><?= $row['no_surat'] ?></td>
                                                 <td>
                                                     <b>Kode</b> : <?= $row['kd_pengadaan'] ?><br>
                                                     <b>Nama</b> : <?= $row['nm_barang'] ?><br>

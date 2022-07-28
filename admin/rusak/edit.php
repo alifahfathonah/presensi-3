@@ -148,8 +148,8 @@ if (isset($_POST['submit'])) {
     ");
 
     if ($update) {
+        $con->query("UPDATE barang SET status = 1 WHERE id_barang = '$row[id_barang]'");
         if ($status_perbaikan == 0) {
-            $con->query("UPDATE barang SET status = 1 WHERE id_barang = '$row[id_barang]'");
             $con->query("UPDATE barang SET status = 0 WHERE id_barang = '$id_barang'");
         }
         $_SESSION['pesan'] = "Data Berhasil di Update";
