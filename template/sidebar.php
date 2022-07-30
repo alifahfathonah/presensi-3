@@ -93,12 +93,12 @@
                     </li>
 
                     <li class="nav-item has-treeview  <?php if (
-                                                            $page == 'pegawai' || $page == 'tugas' || $page == 'absensi' || $page == 'telat'
+                                                            $page == 'pegawai' || $page == 'tugas' || $page == 'absensi' || $page == 'telat' || $page == 'izin'
                                                         ) {
                                                             echo 'menu-open';
                                                         } ?>">
                         <a href="#" class="nav-link <?php if (
-                                                        $page == 'pegawai' || $page == 'tugas' || $page == 'absensi' || $page == 'telat'
+                                                        $page == 'pegawai' || $page == 'tugas' || $page == 'absensi' || $page == 'telat' || $page == 'izin'
                                                     ) {
                                                         echo 'active';
                                                     } ?>">
@@ -136,6 +136,16 @@
                                     <i class="nav-icon fa fa-door-open"></i>
                                     <p>
                                         Akses Terlambat Absensi
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>/admin/izin/" class="nav-link <?php if ($page == 'izin') {
+                                                                                            echo 'active';
+                                                                                        } ?>">
+                                    <i class="nav-icon fa fa-file-signature"></i>
+                                    <p>
+                                        Data Izin
                                     </p>
                                 </a>
                             </li>
@@ -299,6 +309,16 @@
                             <i class="nav-icon fa fa-street-view"></i>
                             <p>
                                 Absensi Kehadiran
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url() ?>/pegawai/izin/" class="nav-link <?php if ($page == 'izin') {
+                                                                                        echo 'active';
+                                                                                    } ?>">
+                            <i class="nav-icon fa fa-file-signature"></i>
+                            <p>
+                                Data Izin
                             </p>
                         </a>
                     </li>

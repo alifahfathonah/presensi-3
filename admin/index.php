@@ -5,6 +5,7 @@ $page = 'dashboard';
 include_once '../template/sidebar.php';
 
 $a = $con->query("SELECT COUNT(*) AS total FROM pegawai WHERE is_active = 1 ")->fetch_array();
+$aa = $con->query("SELECT COUNT(*) AS total FROM izin")->fetch_array();
 $b = $con->query("SELECT COUNT(*) AS total FROM tugas")->fetch_array();
 $c = $con->query("SELECT COUNT(*) AS total FROM pengadaan")->fetch_array();
 $d = $con->query("SELECT COUNT(*) AS total FROM rusak")->fetch_array();
@@ -38,6 +39,16 @@ $e = $con->query("SELECT COUNT(*) AS total FROM mutasi")->fetch_array();
                 </div>
                 <div class="col-sm-6">
                     <div class="info-box mb-12 bg-gradient-olive">
+                        <span class="info-box-icon"><i class="fas fa-file-signature"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Data Izin Pegawai</span>
+                            <span class="info-box-number"><?= $aa['total'] ?> Total Data</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="info-box mb-12 bg-gradient-olive">
                         <span class="info-box-icon"><i class="fas fa-briefcase"></i></span>
 
                         <div class="info-box-content">
@@ -46,8 +57,8 @@ $e = $con->query("SELECT COUNT(*) AS total FROM mutasi")->fetch_array();
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="info-box mb-12 bg-gradient-olive">
+                <div class="col-sm-4">
+                    <div class="info-box mb-12 bg-gradient-cyan">
                         <span class="info-box-icon"><i class="fas fa-truck-loading"></i></span>
 
                         <div class="info-box-content">
@@ -56,7 +67,7 @@ $e = $con->query("SELECT COUNT(*) AS total FROM mutasi")->fetch_array();
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="info-box mb-12 bg-gradient-cyan">
                         <span class="info-box-icon"><i class="fas fa-tools"></i></span>
 
@@ -66,7 +77,7 @@ $e = $con->query("SELECT COUNT(*) AS total FROM mutasi")->fetch_array();
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="info-box mb-12 bg-gradient-cyan">
                         <span class="info-box-icon"><i class="fas fa-people-carry"></i></span>
 

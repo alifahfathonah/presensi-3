@@ -7,8 +7,7 @@ $log = $con->query("SELECT * FROM user WHERE id_user = '$_SESSION[id_user]' ")->
 $user = $log['id_pegawai'];
 
 $a = $con->query("SELECT COUNT(*) AS total FROM tugas a JOIN sub_tugas b ON a.id_tugas = b.id_tugas WHERE b.id_pegawai = '$user' ")->fetch_array();
-// $a2 = $con->query("SELECT COUNT(*) AS total FROM pendaftaran WHERE verif = 1 AND id_peserta = '$user'")->fetch_array();
-// $a3 = $con->query("SELECT COUNT(*) AS total FROM pendaftaran WHERE verif = 0 AND id_peserta = '$user'")->fetch_array();
+$b = $con->query("SELECT COUNT(*) AS total FROM izin WHERE id_pegawai = '$user'")->fetch_array();
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -27,6 +26,17 @@ $a = $con->query("SELECT COUNT(*) AS total FROM tugas a JOIN sub_tugas b ON a.id
             <div class="row">
                 <div class="col-sm-12">
                     <div class="info-box mb-12 bg-gradient-purple">
+                        <span class="info-box-icon"><i class="fas fa-file-signature"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Data Izin</span>
+                            <span class="info-box-number"><?= $b['total'] ?> Total Data</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="info-box mb-12 bg-gradient-olive">
                         <span class="info-box-icon"><i class="fas fa-briefcase"></i></span>
 
                         <div class="info-box-content">
