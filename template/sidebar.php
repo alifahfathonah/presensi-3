@@ -224,7 +224,7 @@
 
 
 
-                    <!-- <li class="nav-header">Laporan</li>
+                    <li class="nav-header">Laporan</li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-print"></i>
@@ -235,22 +235,32 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_diklat">
-                                    <p><i class="fa fa-file-alt mr-1"></i> Diklat</p>
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_pegawai">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Pegawai</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_peserta">
-                                    <p><i class="fa fa-file-alt mr-1"></i> Peserta Diklat</p>
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_rekap_presensi">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Rekapitulasi Presensi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_kehadiran">
-                                    <p><i class="fa fa-file-alt mr-1"></i> Kehadiran Peserta Diklat</p>
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_presensi_pegawai">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Presensi Pegawai</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_izin">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Izin</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_tugas">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Perintah Tugas</p>
                                 </a>
                             </li>
                         </ul>
-                    </li> -->
+                    </li>
                 <?php } else if ($_SESSION['level'] == 2) { ?>
 
                     <li class="nav-item">

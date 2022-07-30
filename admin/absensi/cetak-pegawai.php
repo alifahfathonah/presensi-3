@@ -3,30 +3,34 @@ include '../../app/config.php';
 
 $no = 1;
 
-if (isset($_POST['cetak1'])) {
+$bln = array(
+    '01' => 'Januari',
+    '02' => 'Februari',
+    '03' => 'Maret',
+    '04' => 'April',
+    '05' => 'Mei',
+    '06' => 'Juni',
+    '07' => 'Juli',
+    '08' => 'Agustus',
+    '09' => 'September',
+    '10' => 'Oktober',
+    '11' => 'November',
+    '12' => 'Desember'
+);
 
-    $divisi = $_POST['divisi'];
-    $cekdivisi = isset($divisi);
-    if ($divisi == $cekdivisi) {
-        $sql = mysqli_query($con, "SELECT * FROM pegawai a JOIN divisi b ON a.id_divisi = b.id_divisi JOIN jabatan c ON a.id_jabatan = c.id_jabatan WHERE a.id_divisi = '$divisi' ORDER BY tmt DESC");
-        $dt = $con->query("SELECT * FROM divisi WHERE id_divisi = '$divisi'")->fetch_array();
-        $label = 'LAPORAN DATA PEGAWAI <br> Divisi : ' . $dt['nm_divisi'];
-    }
-} else if (isset($_POST['cetak2'])) {
-    $jabatan = $_POST['jabatan'];
-    $cekjabatan = isset($jabatan);
-    if ($jabatan == $cekjabatan) {
-        $sql = mysqli_query($con, "SELECT * FROM pegawai a JOIN divisi b ON a.id_divisi = b.id_divisi JOIN jabatan c ON a.id_jabatan = c.id_jabatan WHERE a.id_jabatan = '$jabatan' ORDER BY tmt DESC");
-        $dt = $con->query("SELECT * FROM jabatan WHERE id_jabatan = '$jabatan'")->fetch_array();
-        $label = 'LAPORAN DATA PEGAWAI <br> Jabatan : ' . $dt['nm_jabatan'];
-    }
-} else {
-    $sql = mysqli_query($con, "SELECT * FROM pegawai a JOIN divisi b ON a.id_divisi = b.id_divisi JOIN jabatan c ON a.id_jabatan = c.id_jabatan ORDER BY tmt DESC");
-    $label = 'LAPORAN DATA PEGAWAI';
+if (isset($_POST['cetak'])) {
+
+    $bulan = $_POST['bulan'];
+    $tahun = $_POST['tahun'];
+    $pegawai = $_POST['pegawai'];
+
+    $sql = mysqli_query($con, "SELECT * FROM absensi a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai JOIN divisi c ON b.id_divisi = c.id_divisi JOIN jabatan d ON b.id_jabatan = d.id_jabatan WHERE a.id_pegawai = '$pegawai' AND MONTH(a.tanggal) = '$bulan' AND YEAR(a.tanggal) = '$tahun' ORDER BY a.tanggal ASC");
+    $dt = $con->query("SELECT * FROM pegawai WHERE id_pegawai = '$pegawai'")->fetch_array();
+    $label = 'LAPORAN DATA PRESENSI PEGAWAI <br> Nama Pegawai : ' . $dt['nm_pegawai'] . ' <br> Bulan : ' . $bln[date($bulan)] . ' ' . $tahun;
 }
 
 require_once '../../assets/vendor/autoload.php';
-$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [380, 215]]);
+$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'LEGAL-L']);
 ob_start();
 ?>
 
@@ -38,7 +42,7 @@ ob_start();
 <html>
 
 <head>
-    <title>Laporan Data Pegawai</title>
+    <title>Laporan Data Presensi Pegawai</title>
 </head>
 
 <style>
@@ -80,23 +84,14 @@ ob_start();
                             <th>Data Pegawai</th>
                             <th>Divisi</th>
                             <th>Jabatan</th>
-                            <th>TMT</th>
-                            <th>Lama Kerja</th>
-                            <th>TTL</th>
-                            <th>Usia</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Agama</th>
+                            <th>Tanggal</th>
+                            <th>Jam Absen</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <?php while ($data = mysqli_fetch_array($sql)) {
-                            $tgl = new DateTime($data['tgl_lahir']);
-                            $tmt = new DateTime($data['tmt']);
-                            $today = new DateTime('today');
-                            $y = $today->diff($tgl)->y;
-                            $ytmt = $today->diff($tmt)->y;
-                        ?>
+                        <?php while ($data = mysqli_fetch_array($sql)) { ?>
                             <tr>
                                 <td align="center" width="5%"><?= $no++; ?></td>
                                 <td>
@@ -106,12 +101,9 @@ ob_start();
                                 </td>
                                 <td align="center"><?= $data['nm_divisi'] ?></td>
                                 <td align="center"><?= $data['nm_jabatan'] ?></td>
-                                <td align="center"><?= tgl($data['tmt']) ?></td>
-                                <td align="center"><?= $ytmt . ' Tahun' ?></td>
-                                <td align="center"><?= $data['tmpt_lahir'] . ', ' . tgl($data['tgl_lahir']) ?></td>
-                                <td align="center"><?= $y . ' Usia' ?></td>
-                                <td align="center"><?= $data['jk'] ?></td>
-                                <td align="center"><?= $data['agama'] ?></td>
+                                <td align="center"><?= tgl($data['tanggal']) ?></td>
+                                <td align="center"><?= $data['jam'] ?></td>
+                                <td align="center"><?= $data['sts'] ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

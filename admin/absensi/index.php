@@ -65,7 +65,11 @@ include_once '../../template/sidebar.php';
                                                 <td align="center"><?= tgl($row['tanggal']) ?></td>
                                                 <td align="center"><?= $row['jam'] ?></td>
                                                 <td align="center" width="10%">
-                                                    <a href="lokasi?id=<?= $row[0] ?>" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-map-marker-alt mr-1"></i> Detail</a>
+                                                    <?php if ($row['sts'] == 'Hadir') { ?>
+                                                        <a href="lokasi?id=<?= $row[0] ?>" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-map-marker-alt mr-1"></i> Detail</a>
+                                                    <?php } else { ?>
+                                                        <a href="#" class="btn bg-warning btn-xs" title="Edit"><i class="fas fa-exclamation-triangle mr-1"></i></i> <?= $row['sts'] ?> !</a>
+                                                    <?php } ?>
                                                 </td>
                                             </tr>
                                         <?php } ?>
