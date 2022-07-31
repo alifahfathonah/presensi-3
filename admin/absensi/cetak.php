@@ -23,7 +23,7 @@ if (isset($_POST['cetak'])) {
     $bulan = $_POST['bulan'];
     $tahun = $_POST['tahun'];
 
-    $sql = mysqli_query($con, "SELECT * FROM absensi a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai JOIN divisi c ON b.id_divisi = c.id_divisi JOIN jabatan d ON b.id_jabatan = d.id_jabatan WHERE MONTH(a.tanggal) = '$bulan' AND YEAR(a.tanggal) = '$tahun' GROUP BY a.id_pegawai ORDER BY b.tmt DESC");
+    $sql = mysqli_query($con, "SELECT * FROM absensi a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai JOIN divisi c ON b.id_divisi = c.id_divisi JOIN jabatan d ON b.id_jabatan = d.id_jabatan WHERE MONTH(a.tanggal) = '$bulan' AND YEAR(a.tanggal) = '$tahun' GROUP BY a.id_pegawai ORDER BY b.nm_pegawai ASC");
 
     $label = 'LAPORAN DATA REKAPITULASI PRESENSI <br> Bulan : ' . $bln[date($bulan)] . ' ' . $tahun;
 }

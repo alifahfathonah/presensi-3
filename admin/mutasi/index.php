@@ -45,7 +45,7 @@ include_once '../../template/sidebar.php';
                                             <th>Nomor SK</th>
                                             <th>Data Barang</th>
                                             <th>Lokasi Sekarang</th>
-                                            <th>Lokasi Lama</th>
+                                            <th>Lokasi Sebelumnya</th>
                                             <th>Tanggal Mutasi</th>
                                             <th>Aksi</th>
                                         </tr>

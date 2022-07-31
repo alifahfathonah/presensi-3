@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2022 at 04:18 PM
+-- Generation Time: Jul 31, 2022 at 04:08 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -33,7 +33,7 @@ CREATE TABLE `absensi` (
   `id_pegawai` int(11) NOT NULL,
   `id_izin` int(11) DEFAULT NULL,
   `tanggal` date NOT NULL,
-  `jam` varchar(6) NOT NULL,
+  `jam` varchar(6) DEFAULT NULL,
   `latitude` varchar(20) DEFAULT NULL,
   `longitude` varchar(20) DEFAULT NULL,
   `sts` varchar(10) NOT NULL
@@ -45,7 +45,9 @@ CREATE TABLE `absensi` (
 
 INSERT INTO `absensi` (`id_absensi`, `id_pegawai`, `id_izin`, `tanggal`, `jam`, `latitude`, `longitude`, `sts`) VALUES
 (2, 2, NULL, '2022-07-19', '23:48', '-3.2841034', '114.5940115', 'Hadir'),
-(5, 2, NULL, '2022-07-20', '22:16', '-3.2842356562400257', '114.59429153175869', 'Hadir');
+(5, 2, NULL, '2022-07-20', '22:16', '-3.2842356562400257', '114.59429153175869', 'Hadir'),
+(18, 2, 2, '2022-07-31', '-', NULL, NULL, 'Izin'),
+(19, 2, 2, '2022-08-01', '-', NULL, NULL, 'Izin');
 
 -- --------------------------------------------------------
 
@@ -88,6 +90,29 @@ CREATE TABLE `divisi` (
 INSERT INTO `divisi` (`id_divisi`, `nm_divisi`) VALUES
 (2, 'Jaringan'),
 (3, 'Programmer');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `izin`
+--
+
+CREATE TABLE `izin` (
+  `id_izin` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
+  `sts_izin` varchar(10) NOT NULL,
+  `ket_izin` text NOT NULL,
+  `file_izin` varchar(100) NOT NULL,
+  `tgl_mulai` date NOT NULL,
+  `tgl_selesai` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `izin`
+--
+
+INSERT INTO `izin` (`id_izin`, `id_pegawai`, `sts_izin`, `ket_izin`, `file_izin`, `tgl_mulai`, `tgl_selesai`) VALUES
+(2, 2, 'Izin', 'Nenek Masuk Rumah Sakit', '10048.pdf', '2022-07-31', '2022-08-01');
 
 -- --------------------------------------------------------
 
@@ -146,7 +171,7 @@ CREATE TABLE `mutasi` (
 --
 
 INSERT INTO `mutasi` (`id_mutasi`, `no_surat`, `id_barang`, `id_ruangan`, `id_ruangan_old`, `tgl_mutasi`) VALUES
-(5, '6789', 4, 5, 1, '2022-07-15');
+(5, '6789', 4, 5, 5, '2022-07-15');
 
 -- --------------------------------------------------------
 
@@ -178,7 +203,7 @@ CREATE TABLE `pegawai` (
 
 INSERT INTO `pegawai` (`id_pegawai`, `nm_pegawai`, `nip`, `id_divisi`, `id_jabatan`, `status`, `tmt`, `scan_ijazah`, `tmpt_lahir`, `tgl_lahir`, `jk`, `agama`, `alamat`, `hp`, `is_active`) VALUES
 (2, 'Kaiden S.Kom', '121212', 2, 1, 'ASN', '2019-07-08', '25569.pdf', 'Banjarmasin', '1995-07-11', 'Laki - laki', 'Islam', 'Banjarmasin', '081391701913', '1'),
-(3, 'Curt Cobain S.Kom', '123456', 2, 1, 'ASN', '2019-07-07', '56175.pdf', 'London', '1990-07-22', 'Laki - laki', 'Islam', 'Banjarmasin', '084589585899', '1');
+(3, 'Curt Cobain S.Kom', '123456', 3, 3, 'ASN', '2019-07-07', '56175.pdf', 'London', '1990-07-22', 'Laki - laki', 'Islam', 'Banjarmasin', '084589585899', '1');
 
 -- --------------------------------------------------------
 
@@ -200,10 +225,10 @@ CREATE TABLE `pengadaan` (
 --
 
 INSERT INTO `pengadaan` (`id_pengadaan`, `kd_pengadaan`, `nm_barang`, `satuan`, `tgl_pengadaan`, `sumber_dana`) VALUES
-(2, 'IVB000001', 'Sierra IBM, 94.6 FLOPS', 'Unit', '2022-02-14', 'Anggaran 2022'),
+(2, 'IVB000001', 'Sierra IBM, 94.6 FLOPS', 'Unit', '2020-02-14', 'Anggaran 2020'),
 (3, 'IVB000002', 'Monitor LG 20 inc', 'Unit', '2021-07-11', 'Anggaran 2021'),
-(4, 'IVB000003', 'Netgear XS748T 48 Port 10 ', 'Unit', '2020-07-16', 'Anggaran 2020'),
-(5, 'IVB000004', 'Kabel LAN 2 M', 'Set', '2021-07-20', 'Anggaran 2021');
+(4, 'IVB000003', 'Netgear XS748T 48 Port 10 ', 'Unit', '2021-07-16', 'Anggaran 2021'),
+(5, 'IVB000004', 'Kabel LAN 2 M', 'Set', '2022-07-20', 'Anggaran 2022');
 
 -- --------------------------------------------------------
 
@@ -246,7 +271,8 @@ CREATE TABLE `rusak` (
 --
 
 INSERT INTO `rusak` (`id_rusak`, `id_barang`, `ket`, `tgl_rusak`, `status_perbaikan`, `biaya_perbaikan`) VALUES
-(2, 3, 'Layar Pecah', '2022-02-13', '1', 'Rp. 1.000.000');
+(2, 3, 'Layar Pecah', '2022-02-13', '1', 'Rp. 1.000.000'),
+(3, 4, 'Device Sering Restart, Chip Bermasalah', '2022-07-12', '0', '');
 
 -- --------------------------------------------------------
 
@@ -338,7 +364,8 @@ INSERT INTO `user` (`id_user`, `id_pegawai`, `nm_user`, `username`, `password`, 
 --
 ALTER TABLE `absensi`
   ADD PRIMARY KEY (`id_absensi`),
-  ADD KEY `id_pegawai` (`id_pegawai`);
+  ADD KEY `id_pegawai` (`id_pegawai`),
+  ADD KEY `id_izin` (`id_izin`);
 
 --
 -- Indexes for table `barang`
@@ -352,6 +379,13 @@ ALTER TABLE `barang`
 --
 ALTER TABLE `divisi`
   ADD PRIMARY KEY (`id_divisi`);
+
+--
+-- Indexes for table `izin`
+--
+ALTER TABLE `izin`
+  ADD PRIMARY KEY (`id_izin`),
+  ADD KEY `id_pegawai` (`id_pegawai`);
 
 --
 -- Indexes for table `jabatan`
@@ -433,7 +467,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id_absensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_absensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `barang`
 --
@@ -444,6 +478,11 @@ ALTER TABLE `barang`
 --
 ALTER TABLE `divisi`
   MODIFY `id_divisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `izin`
+--
+ALTER TABLE `izin`
+  MODIFY `id_izin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `jabatan`
 --
@@ -478,7 +517,7 @@ ALTER TABLE `ruangan`
 -- AUTO_INCREMENT for table `rusak`
 --
 ALTER TABLE `rusak`
-  MODIFY `id_rusak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_rusak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `sub_tugas`
 --
@@ -488,7 +527,7 @@ ALTER TABLE `sub_tugas`
 -- AUTO_INCREMENT for table `telat`
 --
 ALTER TABLE `telat`
-  MODIFY `id_telat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_telat` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --
@@ -502,13 +541,20 @@ ALTER TABLE `user`
 -- Constraints for table `absensi`
 --
 ALTER TABLE `absensi`
-  ADD CONSTRAINT `absensi_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `absensi_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `absensi_ibfk_2` FOREIGN KEY (`id_izin`) REFERENCES `izin` (`id_izin`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `barang`
 --
 ALTER TABLE `barang`
   ADD CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_pengadaan`) REFERENCES `pengadaan` (`id_pengadaan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `izin`
+--
+ALTER TABLE `izin`
+  ADD CONSTRAINT `izin_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `mutasi`

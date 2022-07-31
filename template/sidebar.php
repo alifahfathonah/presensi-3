@@ -259,6 +259,26 @@
                                     <p><i class="fa fa-file-alt fa-1x mr-1"></i> Perintah Tugas</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_pengadaan">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Pengadaan Barang</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_barang">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Barang</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_rusak">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Kerusakan Barang</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_mutasi">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Mutasi Barang</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 <?php } else if ($_SESSION['level'] == 2) { ?>

@@ -3,40 +3,18 @@ include '../../app/config.php';
 
 $no = 1;
 
-$bln = array(
-    '01' => 'Januari',
-    '02' => 'Februari',
-    '03' => 'Maret',
-    '04' => 'April',
-    '05' => 'Mei',
-    '06' => 'Juni',
-    '07' => 'Juli',
-    '08' => 'Agustus',
-    '09' => 'September',
-    '10' => 'Oktober',
-    '11' => 'November',
-    '12' => 'Desember'
-);
 
 if (isset($_POST['cetak1'])) {
 
-    $izin = $_POST['izin'];
-
-    $sql = mysqli_query($con, "SELECT * FROM izin a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai JOIN divisi c ON b.id_divisi = c.id_divisi JOIN jabatan d ON b.id_jabatan = d.id_jabatan WHERE a.sts_izin = '$izin' ORDER BY tgl_mulai DESC");
-
-    $label = 'LAPORAN DATA IZIN PEGAWAI <br> Jenis Izin : ' . $izin;
-} else if (isset($_POST['cetak2'])) {
-
-    $bulan = $_POST['bulan'];
     $tahun = $_POST['tahun'];
 
-    $sql = mysqli_query($con, "SELECT * FROM izin a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai JOIN divisi c ON b.id_divisi = c.id_divisi JOIN jabatan d ON b.id_jabatan = d.id_jabatan WHERE MONTH(a.tgl_mulai) = '$bulan' AND YEAR(a.tgl_mulai) = '$tahun' ORDER BY a.tgl_mulai ASC");
+    $sql = mysqli_query($con, "SELECT * FROM rusak a JOIN barang b ON a.id_barang = b.id_barang JOIN pengadaan c ON b.id_pengadaan = c.id_pengadaan WHERE YEAR(a.tgl_rusak) = '$tahun' ORDER BY tgl_rusak ASC");
 
-    $label = 'LAPORAN DATA IZIN PEGAWAI <br> Bulan : ' . $bln[date($bulan)] . ' ' . $tahun;
+    $label = 'LAPORAN DATA KERUSAKAN BARANG <br> Tahun Kerusakan : ' . $tahun;
 } else {
-    $sql = mysqli_query($con, "SELECT * FROM izin a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai JOIN divisi c ON b.id_divisi = c.id_divisi JOIN jabatan d ON b.id_jabatan = d.id_jabatan ORDER BY tgl_mulai DESC");
+    $sql = mysqli_query($con, "SELECT * FROM rusak a JOIN barang b ON a.id_barang = b.id_barang JOIN pengadaan c ON b.id_pengadaan = c.id_pengadaan ORDER BY tgl_rusak DESC");
 
-    $label = 'LAPORAN DATA IZIN PEGAWAI';
+    $label = 'LAPORAN DATA KERUSAKAN BARANG';
 }
 
 require_once '../../assets/vendor/autoload.php';
@@ -52,7 +30,7 @@ ob_start();
 <html>
 
 <head>
-    <title>Laporan Data Izin Pegawai</title>
+    <title>Laporan Data Kerusakan Barang</title>
 </head>
 
 <style>
@@ -91,39 +69,40 @@ ob_start();
                     <thead>
                         <tr bgcolor="#007BFF" align="center">
                             <th>No</th>
-                            <th>Data Pegawai</th>
-                            <th>Divisi</th>
-                            <th>Jabatan</th>
-                            <th>Jenis Izin</th>
+                            <th>Kode Barang</th>
+                            <th>Nama Barang</th>
+                            <th>Tanggal Pengadaan</th>
                             <th>Keterangan</th>
-                            <th>Tanggal Mulai</th>
-                            <th>Tanggal Selesai</th>
-                            <th>Lama Izin</th>
+                            <th>Tanggal Kerusakan</th>
+                            <th>Kerusakan Terhitung</th>
+                            <th>Status Kerusakan</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <?php while ($data = mysqli_fetch_array($sql)) {
-                            $tgl1 = $data['tgl_mulai'];
-                            $tgl2 = date('Y-m-d', strtotime('-1 days', strtotime($tgl1)));
-                            $a = date_create($tgl2);
-                            $b = date_create($data['tgl_selesai']);
-                            $diff = date_diff($a, $b);
+                            $tgl = new DateTime($data['tgl_rusak']);
+                            $today = new DateTime('today');
+                            $y = $today->diff($tgl)->y;
+                            $m = $today->diff($tgl)->m;
+                            $d = $today->diff($tgl)->d;
                         ?>
                             <tr>
                                 <td align="center" width="5%"><?= $no++; ?></td>
-                                <td>
-                                    <b>Nama</b> : <?= $data['nm_pegawai'] ?><br>
-                                    <b>NIP</b> : <?= $data['nip'] ?><br>
-                                    <b>Status</b> : <?= $data['status'] ?>
+                                <td align="center"><?= $data['kd_pengadaan'] ?></td>
+                                <td><?= $data['nm_barang'] ?></td>
+                                <td align="center"><?= tgl($data['tgl_pengadaan']) ?></td>
+                                <td><?= $data['ket'] ?></td>
+                                <td align="center"><?= tgl($data['tgl_rusak']) ?></td>
+                                <td align="center"><?= $y . " Tahun " . $m . " Bulan " . $d . " Hari" ?> Lalu</td>
+                                <td align="center">
+                                    <?php if ($data['status_perbaikan'] == 1) { ?>
+                                        Barang Bisa Diperbaiki <br>
+                                        Biaya : <?= $data['biaya_perbaikan'] ?>
+                                    <?php } else { ?>
+                                        Barang Rusak Total
+                                    <?php  } ?>
                                 </td>
-                                <td align="center"><?= $data['nm_divisi'] ?></td>
-                                <td align="center"><?= $data['nm_jabatan'] ?></td>
-                                <td align="center"><?= $data['sts_izin'] ?></td>
-                                <td><?= $data['ket_izin'] ?></td>
-                                <td align="center"><?= tgl($data['tgl_mulai']) ?></td>
-                                <td align="center"><?= tgl($data['tgl_selesai']) ?></td>
-                                <td align="center"><?= $diff->d . ' Hari' ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

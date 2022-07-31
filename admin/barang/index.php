@@ -86,7 +86,7 @@ include_once '../../template/sidebar.php';
                                             <th>Data Barang</th>
                                             <th>Tanggal</th>
                                             <th>Lokasi</th>
-                                            <th>Status</th>
+                                            <th>Kondisi</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
