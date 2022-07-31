@@ -222,8 +222,6 @@
                         </ul>
                     </li>
 
-
-
                     <li class="nav-header">Laporan</li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
@@ -294,7 +292,7 @@
                         </a>
                     </li>
 
-                    <!-- <li class="nav-header">Laporan</li>
+                    <li class="nav-header">Laporan</li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-print"></i>
@@ -305,22 +303,52 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_diklat">
-                                    <p><i class="fa fa-file-alt mr-1"></i> Diklat</p>
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_pegawai">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Pegawai</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_peserta">
-                                    <p><i class="fa fa-file-alt mr-1"></i> Peserta Diklat</p>
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_rekap_presensi">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Rekapitulasi Presensi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_kehadiran">
-                                    <p><i class="fa fa-file-alt mr-1"></i> Kehadiran Peserta Diklat</p>
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_presensi_pegawai">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Presensi Pegawai</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_izin">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Izin</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_tugas">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Perintah Tugas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_pengadaan">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Pengadaan Barang</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_barang">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Barang</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_rusak">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Kerusakan Barang</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#lap_mutasi">
+                                    <p><i class="fa fa-file-alt fa-1x mr-1"></i> Mutasi Barang</p>
                                 </a>
                             </li>
                         </ul>
-                    </li> -->
+                    </li>
                 <?php } else { ?>
                     <li class="nav-item">
                         <a href="<?= base_url() ?>/pegawai/" class="nav-link <?php if ($page == 'dashboard') {
